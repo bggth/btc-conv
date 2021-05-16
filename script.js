@@ -28,7 +28,7 @@ function getBTCPrice(currency_info) {
 
 function getBTCPrice2(currency_info) {
 	log("getBTCPrice2()")
-	$.get("http://api.coindesk.com/v1/bpi/currentprice.json")
+	$.get("https://api.coindesk.com/v1/bpi/currentprice.json")
 		.done(function(data) {
 			data = JSON.parse(data)
 			log(data["bpi"]["USD"]["rate"])
