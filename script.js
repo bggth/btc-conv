@@ -26,6 +26,19 @@ function getBTCPrice(currency_info) {
 		})
 }
 
+function getBTCPrice2(currency_info) {
+	log("getBTCPrice2()")
+	$.get("http://api.coindesk.com/v1/bpi/currentprice.json")
+		.done(function(data) {
+			data = JSON.parse(data)
+			log(data["bpi"]["USD"]["rate"])
+			var price = data["bpi"]["USD"]["rate"].replace(",", "")
+			currency_info["btc_usd"] = parseFloat(price);
+			getUSDPrice(currency_info)
+		})
+}
+
+
 function getUSDPrice(currency_info) {
 	log("getUSDPrice()")
 	$.getJSON("https://www.cbr-xml-daily.ru/daily_json.js")
@@ -33,6 +46,8 @@ function getUSDPrice(currency_info) {
 			var price = data["Valute"]["USD"]["Value"];//data['ticker']['price']
 			currency_info["usd_rub"] = price;
 			init_converters(currency_info);
+			log(currency_info)
+
 		})
 }
 
@@ -91,6 +106,6 @@ $("#line1").on("input", function(){
 
 $(document).ready(function() {
 	var currency_info = {};
-	getBTCPrice(currency_info);
+	getBTCPrice2(currency_info);
 		//$("#currency_info").html()
 })
